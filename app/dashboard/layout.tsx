@@ -5,6 +5,7 @@ import Image from "next/image";
 import { DashboardItems } from "../components/dashboard/DashboardItems";
 import { DollarSign, Globe, Home } from "lucide-react";
 
+// アイコン
 export const navLinks = [
   {
     name: "Dashboard",
@@ -23,6 +24,7 @@ export const navLinks = [
   },
 ];
 
+// Readonlyにすべき？
 export default function DashboardLayout({children}: { children: React.ReactNode; }) {
   return (
     <section className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
