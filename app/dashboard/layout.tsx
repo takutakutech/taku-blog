@@ -1,9 +1,15 @@
+"use client"; // LogoutLinkを使うため
+
 import Link from "next/link";
 
 import window from "@/public/window.svg"; // LOGOを入れたいけど仮
 import Image from "next/image";
 import { DashboardItems } from "../components/dashboard/DashboardItems";
-import { DollarSign, Globe, Home } from "lucide-react";
+import { CircleUser, DollarSign, Globe, Home } from "lucide-react";
+import { ThemeToggle } from "../components/dashboard/ThemeToggle";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 
 // アイコン
 export const navLinks = [
@@ -25,7 +31,7 @@ export const navLinks = [
 ];
 
 // Readonlyにすべき？
-export default function DashboardLayout({children}: { children: React.ReactNode; }) {
+export default function DashboardLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   return (
     <section className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
@@ -44,6 +50,29 @@ export default function DashboardLayout({children}: { children: React.ReactNode;
             </nav>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col">
+        <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+          <div className="ml-auto flex items-center gap-x-5">
+            <ThemeToggle />
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="secondary" size="icon" className="rounded-full">
+                  <CircleUser className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <LogoutLink>Logout</LogoutLink>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </header>
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+          {children}
+        </main>
       </div>
     </section>
   );
